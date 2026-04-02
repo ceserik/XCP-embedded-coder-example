@@ -1,0 +1,127 @@
+/*
+ * Academic License - for use in teaching, academic research, and meeting
+ * course requirements at degree granting institutions only.  Not for
+ * government, commercial, or other organizational use.
+ *
+ * File: mymodel.c
+ *
+ * Code generated for Simulink model 'mymodel'.
+ *
+ * Model version                  : 1.6
+ * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
+ * C/C++ source code generated on : Thu Apr  2 14:12:26 2026
+ *
+ * Target selection: ert.tlc
+ * Embedded hardware selection: Intel->x86-64 (Windows64)
+ * Code generation objectives: Unspecified
+ * Validation result: Not run
+ */
+
+#include "mymodel.h"
+#include <math.h>
+#include "rtwtypes.h"
+#include "mymodel_private.h"
+
+/* Block signals (default storage) */
+B_mymodel_T mymodel_B;
+
+/* Block states (default storage) */
+DW_mymodel_T mymodel_DW;
+
+/* External outputs (root outports fed by signals with default storage) */
+ExtY_mymodel_T mymodel_Y;
+
+/* Real-time model */
+static RT_MODEL_mymodel_T mymodel_M_;
+RT_MODEL_mymodel_T *const mymodel_M = &mymodel_M_;
+
+/* Model step function */
+void mymodel_step(void)
+{
+  /* DiscreteIntegrator: '<Root>/Discrete-Time Integrator1' */
+  mymodel_B.x = mymodel_DW.DiscreteTimeIntegrator1_DSTATE;
+
+  /* DiscreteIntegrator: '<Root>/Discrete-Time Integrator' */
+  mymodel_B.v = mymodel_DW.DiscreteTimeIntegrator_DSTATE;
+
+  /* Gain: '<Root>/1//Mass ' incorporates:
+   *  Gain: '<Root>/Damping'
+   *  Gain: '<Root>/Stiffness'
+   *  Sin: '<Root>/Sine Wave'
+   *  Sum: '<Root>/Add'
+   *  Sum: '<Root>/Sum1'
+   */
+  mymodel_B.a = ((0.0 - (sin((real_T)mymodel_DW.counter * 2.0 *
+    3.1415926535897931 / 10.0) * 10.0 + 400.0 * mymodel_B.x)) - 10.0 *
+                 mymodel_B.v) * 0.27777777777777779;
+
+  /* Outport: '<Root>/Out1' */
+  mymodel_Y.Out1[0] = mymodel_B.x;
+  mymodel_Y.Out1[1] = mymodel_B.v;
+  mymodel_Y.Out1[2] = mymodel_B.a;
+
+  /* Update for DiscreteIntegrator: '<Root>/Discrete-Time Integrator1' */
+  mymodel_DW.DiscreteTimeIntegrator1_DSTATE += 0.01 * mymodel_B.v;
+
+  /* Update for Sin: '<Root>/Sine Wave' */
+  mymodel_DW.counter++;
+  if (mymodel_DW.counter == 10) {
+    mymodel_DW.counter = 0;
+  }
+
+  /* End of Update for Sin: '<Root>/Sine Wave' */
+
+  /* Update for DiscreteIntegrator: '<Root>/Discrete-Time Integrator' */
+  mymodel_DW.DiscreteTimeIntegrator_DSTATE += 0.01 * mymodel_B.a;
+
+  {                                    /* Sample time: [0.01s, 0.0s] */
+  }
+
+  /* Update absolute time for base rate */
+  /* The "clockTick0" counts the number of times the code of this task has
+   * been executed. The absolute time is the multiplication of "clockTick0"
+   * and "Timing.stepSize0". Size of "clockTick0" ensures timer will not
+   * overflow during the application lifespan selected.
+   */
+  mymodel_M->Timing.taskTime0 =
+    ((time_T)(++mymodel_M->Timing.clockTick0)) * mymodel_M->Timing.stepSize0;
+}
+
+/* Model initialize function */
+void mymodel_initialize(void)
+{
+  /* Registration code */
+  rtmSetTFinal(mymodel_M, 10.0);
+  mymodel_M->Timing.stepSize0 = 0.01;
+
+  /* External mode info */
+  mymodel_M->Sizes.checksums[0] = (2229650287U);
+  mymodel_M->Sizes.checksums[1] = (153197035U);
+  mymodel_M->Sizes.checksums[2] = (3144143726U);
+  mymodel_M->Sizes.checksums[3] = (590975229U);
+
+  {
+    static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
+    static RTWExtModeInfo rt_ExtModeInfo;
+    static const sysRanDType *systemRan[1];
+    mymodel_M->extModeInfo = (&rt_ExtModeInfo);
+    rteiSetSubSystemActiveVectorAddresses(&rt_ExtModeInfo, systemRan);
+    systemRan[0] = &rtAlwaysEnabled;
+    rteiSetModelMappingInfoPtr(mymodel_M->extModeInfo,
+      &mymodel_M->SpecialInfo.mappingInfo);
+    rteiSetChecksumsPtr(mymodel_M->extModeInfo, mymodel_M->Sizes.checksums);
+    rteiSetTPtr(mymodel_M->extModeInfo, rtmGetTPtr(mymodel_M));
+  }
+}
+
+/* Model terminate function */
+void mymodel_terminate(void)
+{
+  /* (no terminate code required) */
+}
+
+/*
+ * File trailer for generated code.
+ *
+ * [EOF]
+ */
