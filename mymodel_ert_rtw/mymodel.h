@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'mymodel'.
  *
- * Model version                  : 1.6
+ * Model version                  : 1.7
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Thu Apr  2 14:12:26 2026
+ * C/C++ source code generated on : Tue Apr  7 12:23:06 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -88,6 +88,45 @@ typedef struct {
   real_T Out1[3];                      /* '<Root>/Out1' */
 } ExtY_mymodel_T;
 
+/* Parameters (default storage) */
+struct P_mymodel_T_ {
+  real_T b;                            /* Variable: b
+                                        * Referenced by: '<Root>/Damping'
+                                        */
+  real_T k;                            /* Variable: k
+                                        * Referenced by: '<Root>/Stiffness'
+                                        */
+  real_T m;                            /* Variable: m
+                                        * Referenced by: '<Root>/1//Mass '
+                                        */
+  real_T DiscreteTimeIntegrator1_gainval;
+                          /* Computed Parameter: DiscreteTimeIntegrator1_gainval
+                           * Referenced by: '<Root>/Discrete-Time Integrator1'
+                           */
+  real_T DiscreteTimeIntegrator1_IC;   /* Expression: 0
+                                        * Referenced by: '<Root>/Discrete-Time Integrator1'
+                                        */
+  real_T SineWave_Amp;                 /* Expression: 10
+                                        * Referenced by: '<Root>/Sine Wave'
+                                        */
+  real_T SineWave_Bias;                /* Expression: 0
+                                        * Referenced by: '<Root>/Sine Wave'
+                                        */
+  real_T SineWave_NumSamp;             /* Expression: 10
+                                        * Referenced by: '<Root>/Sine Wave'
+                                        */
+  real_T SineWave_Offset;              /* Expression: 0
+                                        * Referenced by: '<Root>/Sine Wave'
+                                        */
+  real_T DiscreteTimeIntegrator_gainval;
+                           /* Computed Parameter: DiscreteTimeIntegrator_gainval
+                            * Referenced by: '<Root>/Discrete-Time Integrator'
+                            */
+  real_T DiscreteTimeIntegrator_IC;    /* Expression: 0
+                                        * Referenced by: '<Root>/Discrete-Time Integrator'
+                                        */
+};
+
 /* Real-time Model Data Structure */
 struct tag_RTM_mymodel_T {
   const char_T *errorStatus;
@@ -125,6 +164,9 @@ struct tag_RTM_mymodel_T {
     boolean_T stopRequestedFlag;
   } Timing;
 };
+
+/* Block parameters (default storage) */
+extern P_mymodel_T mymodel_P;
 
 /* Block signals (default storage) */
 extern B_mymodel_T mymodel_B;

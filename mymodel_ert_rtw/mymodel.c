@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'mymodel'.
  *
- * Model version                  : 1.6
+ * Model version                  : 1.7
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Thu Apr  2 14:12:26 2026
+ * C/C++ source code generated on : Tue Apr  7 12:23:06 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -51,9 +51,11 @@ void mymodel_step(void)
    *  Sum: '<Root>/Add'
    *  Sum: '<Root>/Sum1'
    */
-  mymodel_B.a = ((0.0 - (sin((real_T)mymodel_DW.counter * 2.0 *
-    3.1415926535897931 / 10.0) * 10.0 + 400.0 * mymodel_B.x)) - 10.0 *
-                 mymodel_B.v) * 0.27777777777777779;
+  mymodel_B.a = ((0.0 - ((sin(((real_T)mymodel_DW.counter +
+    mymodel_P.SineWave_Offset) * 2.0 * 3.1415926535897931 /
+    mymodel_P.SineWave_NumSamp) * mymodel_P.SineWave_Amp +
+    mymodel_P.SineWave_Bias) + mymodel_P.k * mymodel_B.x)) - mymodel_P.b *
+                 mymodel_B.v) * (1.0 / mymodel_P.m);
 
   /* Outport: '<Root>/Out1' */
   mymodel_Y.Out1[0] = mymodel_B.x;
@@ -61,18 +63,20 @@ void mymodel_step(void)
   mymodel_Y.Out1[2] = mymodel_B.a;
 
   /* Update for DiscreteIntegrator: '<Root>/Discrete-Time Integrator1' */
-  mymodel_DW.DiscreteTimeIntegrator1_DSTATE += 0.01 * mymodel_B.v;
+  mymodel_DW.DiscreteTimeIntegrator1_DSTATE +=
+    mymodel_P.DiscreteTimeIntegrator1_gainval * mymodel_B.v;
 
   /* Update for Sin: '<Root>/Sine Wave' */
   mymodel_DW.counter++;
-  if (mymodel_DW.counter == 10) {
+  if (mymodel_DW.counter == mymodel_P.SineWave_NumSamp) {
     mymodel_DW.counter = 0;
   }
 
   /* End of Update for Sin: '<Root>/Sine Wave' */
 
   /* Update for DiscreteIntegrator: '<Root>/Discrete-Time Integrator' */
-  mymodel_DW.DiscreteTimeIntegrator_DSTATE += 0.01 * mymodel_B.a;
+  mymodel_DW.DiscreteTimeIntegrator_DSTATE +=
+    mymodel_P.DiscreteTimeIntegrator_gainval * mymodel_B.a;
 
   {                                    /* Sample time: [0.01s, 0.0s] */
   }
@@ -95,10 +99,10 @@ void mymodel_initialize(void)
   mymodel_M->Timing.stepSize0 = 0.01;
 
   /* External mode info */
-  mymodel_M->Sizes.checksums[0] = (2229650287U);
-  mymodel_M->Sizes.checksums[1] = (153197035U);
-  mymodel_M->Sizes.checksums[2] = (3144143726U);
-  mymodel_M->Sizes.checksums[3] = (590975229U);
+  mymodel_M->Sizes.checksums[0] = (3948334119U);
+  mymodel_M->Sizes.checksums[1] = (604363790U);
+  mymodel_M->Sizes.checksums[2] = (1119214602U);
+  mymodel_M->Sizes.checksums[3] = (2987596016U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
@@ -112,6 +116,13 @@ void mymodel_initialize(void)
     rteiSetChecksumsPtr(mymodel_M->extModeInfo, mymodel_M->Sizes.checksums);
     rteiSetTPtr(mymodel_M->extModeInfo, rtmGetTPtr(mymodel_M));
   }
+
+  /* InitializeConditions for DiscreteIntegrator: '<Root>/Discrete-Time Integrator1' */
+  mymodel_DW.DiscreteTimeIntegrator1_DSTATE =
+    mymodel_P.DiscreteTimeIntegrator1_IC;
+
+  /* InitializeConditions for DiscreteIntegrator: '<Root>/Discrete-Time Integrator' */
+  mymodel_DW.DiscreteTimeIntegrator_DSTATE = mymodel_P.DiscreteTimeIntegrator_IC;
 }
 
 /* Model terminate function */

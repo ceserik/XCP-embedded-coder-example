@@ -1,6 +1,7 @@
 xcp_ext_mode.obj
 ert_main.obj
 mymodel.obj
+mymodel_data.obj
 xcp_ext_common.obj
 xcp_ext_classic_trigger.obj
 xcp.obj
