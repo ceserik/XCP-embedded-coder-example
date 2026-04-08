@@ -2,7 +2,7 @@
 ## Makefile generated for component 'mymodel'. 
 ## 
 ## Makefile     : mymodel.mk
-## Generated on : Tue Apr 07 12:20:37 2026
+## Generated on : Wed Apr 08 08:52:47 2026
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)/mymodel.exe
 ## Product type : executable
 ## 
@@ -142,7 +142,7 @@ MEX_LDFLAGS          =
 # Model-Specific Options
 #---------------------------
 
-CFLAGS = -c $(MINGW_C_STANDARD_OPTS) -m64 -O0 -g
+CFLAGS = -c $(MINGW_C_STANDARD_OPTS) -m64 -O0 -g3 -gdwarf-4 -g
 
 LDFLAGS = -static -m64 -g
 

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'mymodel'.
  *
- * Model version                  : 1.7
+ * Model version                  : 1.11
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Tue Apr  7 12:23:06 2026
+ * C/C++ source code generated on : Wed Apr  8 08:52:41 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -99,12 +99,22 @@ struct P_mymodel_T_ {
   real_T m;                            /* Variable: m
                                         * Referenced by: '<Root>/1//Mass '
                                         */
+  real_T DataStoreMemory_InitialValue; /* Expression: 0
+                                        * Referenced by: '<Root>/Data Store Memory'
+                                        */
   real_T DiscreteTimeIntegrator1_gainval;
                           /* Computed Parameter: DiscreteTimeIntegrator1_gainval
                            * Referenced by: '<Root>/Discrete-Time Integrator1'
                            */
   real_T DiscreteTimeIntegrator1_IC;   /* Expression: 0
                                         * Referenced by: '<Root>/Discrete-Time Integrator1'
+                                        */
+  real_T DiscreteTimeIntegrator_gainval;
+                           /* Computed Parameter: DiscreteTimeIntegrator_gainval
+                            * Referenced by: '<Root>/Discrete-Time Integrator'
+                            */
+  real_T DiscreteTimeIntegrator_IC;    /* Expression: 0
+                                        * Referenced by: '<Root>/Discrete-Time Integrator'
                                         */
   real_T SineWave_Amp;                 /* Expression: 10
                                         * Referenced by: '<Root>/Sine Wave'
@@ -117,13 +127,6 @@ struct P_mymodel_T_ {
                                         */
   real_T SineWave_Offset;              /* Expression: 0
                                         * Referenced by: '<Root>/Sine Wave'
-                                        */
-  real_T DiscreteTimeIntegrator_gainval;
-                           /* Computed Parameter: DiscreteTimeIntegrator_gainval
-                            * Referenced by: '<Root>/Discrete-Time Integrator'
-                            */
-  real_T DiscreteTimeIntegrator_IC;    /* Expression: 0
-                                        * Referenced by: '<Root>/Discrete-Time Integrator'
                                         */
 };
 
@@ -178,7 +181,10 @@ extern DW_mymodel_T mymodel_DW;
 extern ExtY_mymodel_T mymodel_Y;
 
 /* Model entry point functions */
+/* Volatile memory section */
 extern void mymodel_initialize(void);
+
+/* Const memory section */
 extern void mymodel_step(void);
 extern void mymodel_terminate(void);
 

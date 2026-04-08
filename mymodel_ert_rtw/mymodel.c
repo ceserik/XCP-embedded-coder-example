@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'mymodel'.
  *
- * Model version                  : 1.7
+ * Model version                  : 1.11
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Tue Apr  7 12:23:06 2026
+ * C/C++ source code generated on : Wed Apr  8 08:52:41 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -36,6 +36,8 @@ static RT_MODEL_mymodel_T mymodel_M_;
 RT_MODEL_mymodel_T *const mymodel_M = &mymodel_M_;
 
 /* Model step function */
+
+/* Const memory section */
 void mymodel_step(void)
 {
   /* DiscreteIntegrator: '<Root>/Discrete-Time Integrator1' */
@@ -66,6 +68,10 @@ void mymodel_step(void)
   mymodel_DW.DiscreteTimeIntegrator1_DSTATE +=
     mymodel_P.DiscreteTimeIntegrator1_gainval * mymodel_B.v;
 
+  /* Update for DiscreteIntegrator: '<Root>/Discrete-Time Integrator' */
+  mymodel_DW.DiscreteTimeIntegrator_DSTATE +=
+    mymodel_P.DiscreteTimeIntegrator_gainval * mymodel_B.a;
+
   /* Update for Sin: '<Root>/Sine Wave' */
   mymodel_DW.counter++;
   if (mymodel_DW.counter == mymodel_P.SineWave_NumSamp) {
@@ -73,11 +79,6 @@ void mymodel_step(void)
   }
 
   /* End of Update for Sin: '<Root>/Sine Wave' */
-
-  /* Update for DiscreteIntegrator: '<Root>/Discrete-Time Integrator' */
-  mymodel_DW.DiscreteTimeIntegrator_DSTATE +=
-    mymodel_P.DiscreteTimeIntegrator_gainval * mymodel_B.a;
-
   {                                    /* Sample time: [0.01s, 0.0s] */
   }
 
@@ -92,17 +93,19 @@ void mymodel_step(void)
 }
 
 /* Model initialize function */
+
+/* Volatile memory section */
 void mymodel_initialize(void)
 {
   /* Registration code */
-  rtmSetTFinal(mymodel_M, 10.0);
+  rtmSetTFinal(mymodel_M, -1);
   mymodel_M->Timing.stepSize0 = 0.01;
 
   /* External mode info */
-  mymodel_M->Sizes.checksums[0] = (3948334119U);
-  mymodel_M->Sizes.checksums[1] = (604363790U);
-  mymodel_M->Sizes.checksums[2] = (1119214602U);
-  mymodel_M->Sizes.checksums[3] = (2987596016U);
+  mymodel_M->Sizes.checksums[0] = (1822297175U);
+  mymodel_M->Sizes.checksums[1] = (771875560U);
+  mymodel_M->Sizes.checksums[2] = (1181160525U);
+  mymodel_M->Sizes.checksums[3] = (4289910520U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;

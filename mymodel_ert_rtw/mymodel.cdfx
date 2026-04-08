@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE MSRSW PUBLIC "-//ASAM//DTD CALIBRATION DATA FORMAT:V2.1.0:LAI:IAI:XML //EN" "cdf_v2.1.0.sl.dtd">
+<MSRSW>
+
+  <SHORT-NAME>mymodel</SHORT-NAME>
+
+  <CATEGORY>CDF21</CATEGORY>
+
+  <SW-SYSTEMS>
+    <SW-SYSTEM>
+      <SHORT-NAME>mymodel</SHORT-NAME>
+      <SW-INSTANCE-SPEC>
+        <SW-INSTANCE-TREE>
+          <SHORT-NAME>mymodel</SHORT-NAME>
+          <CATEGORY>NO_VCD</CATEGORY>
+          <SW-INSTANCE>
+            <SHORT-NAME>mymodel_P.b</SHORT-NAME>
+            <LONG-NAME></LONG-NAME>
+            <CATEGORY>VALUE</CATEGORY>
+            <SW-VALUE-CONT>
+              <UNIT-DISPLAY-NAME xml:space="preserve"></UNIT-DISPLAY-NAME>
+              <SW-VALUES-PHYS>
+                <V>10.0</V>
+              </SW-VALUES-PHYS>
+            </SW-VALUE-CONT>
+          </SW-INSTANCE>
+          <SW-INSTANCE>
+            <SHORT-NAME>mymodel_P.k</SHORT-NAME>
+            <LONG-NAME></LONG-NAME>
+            <CATEGORY>VALUE</CATEGORY>
+            <SW-VALUE-CONT>
+              <UNIT-DISPLAY-NAME xml:space="preserve"></UNIT-DISPLAY-NAME>
+              <SW-VALUES-PHYS>
+                <V>400.0</V>
+              </SW-VALUES-PHYS>
+            </SW-VALUE-CONT>
+          </SW-INSTANCE>
+          <SW-INSTANCE>
+            <SHORT-NAME>mymodel_P.m</SHORT-NAME>
+            <LONG-NAME></LONG-NAME>
+            <CATEGORY>VALUE</CATEGORY>
+            <SW-VALUE-CONT>
+              <UNIT-DISPLAY-NAME xml:space="preserve"></UNIT-DISPLAY-NAME>
+              <SW-VALUES-PHYS>
+                <V>3.6</V>
+              </SW-VALUES-PHYS>
+            </SW-VALUE-CONT>
+          </SW-INSTANCE>
+          <SW-INSTANCE>
+            <SHORT-NAME>mymodel_P.DataStoreMemory_InitialValue</SHORT-NAME>
+            <LONG-NAME></LONG-NAME>
+            <CATEGORY>VALUE</CATEGORY>
+            <SW-VALUE-CONT>
+              <UNIT-DISPLAY-NAME xml:space="preserve"></UNIT-DISPLAY-NAME>
+              <SW-VALUES-PHYS>
+                <V>0.0</V>
+              </SW-VALUES-PHYS>
+            </SW-VALUE-CONT>
+          </SW-INSTANCE>
+          <SW-INSTANCE>
+            <SHORT-NAME>mymodel_P.DiscreteTimeIntegrator1_gainval</SHORT-NAME>
+            <LONG-NAME></LONG-NAME>
+            <CATEGORY>VALUE</CATEGORY>
+            <SW-VALUE-CONT>
+              <UNIT-DISPLAY-NAME xml:space="preserve"></UNIT-DISPLAY-NAME>
+              <SW-VALUES-PHYS>
+                <V>1.0</V>
+              </SW-VALUES-PHYS>
+            </SW-VALUE-CONT>
+          </SW-INSTANCE>
+          <SW-INSTANCE>
+            <SHORT-NAME>mymodel_P.DiscreteTimeIntegrator1_IC</SHORT-NAME>
+            <LONG-NAME></LONG-NAME>
+            <CATEGORY>VALUE</CATEGORY>
+            <SW-VALUE-CONT>
+              <UNIT-DISPLAY-NAME xml:space="preserve"></UNIT-DISPLAY-NAME>
+              <SW-VALUES-PHYS>
+                <V>0.0</V>
+              </SW-VALUES-PHYS>
+            </SW-VALUE-CONT>
+          </SW-INSTANCE>
+          <SW-INSTANCE>
+            <SHORT-NAME>mymodel_P.DiscreteTimeIntegrator_gainval</SHORT-NAME>
+            <LONG-NAME></LONG-NAME>
+            <CATEGORY>VALUE</CATEGORY>
+            <SW-VALUE-CONT>
+              <UNIT-DISPLAY-NAME xml:space="preserve"></UNIT-DISPLAY-NAME>
+              <SW-VALUES-PHYS>
+                <V>1.0</V>
+              </SW-VALUES-PHYS>
+            </SW-VALUE-CONT>
+          </SW-INSTANCE>
+          <SW-INSTANCE>
+            <SHORT-NAME>mymodel_P.DiscreteTimeIntegrator_IC</SHORT-NAME>
+            <LONG-NAME></LONG-NAME>
+            <CATEGORY>VALUE</CATEGORY>
+            <SW-VALUE-CONT>
+              <UNIT-DISPLAY-NAME xml:space="preserve"></UNIT-DISPLAY-NAME>
+              <SW-VALUES-PHYS>
+                <V>0.0</V>
+              </SW-VALUES-PHYS>
+            </SW-VALUE-CONT>
+          </SW-INSTANCE>
+          <SW-INSTANCE>
+            <SHORT-NAME>mymodel_P.SineWave_Amp</SHORT-NAME>
+            <LONG-NAME></LONG-NAME>
+            <CATEGORY>VALUE</CATEGORY>
+            <SW-VALUE-CONT>
+              <UNIT-DISPLAY-NAME xml:space="preserve"></UNIT-DISPLAY-NAME>
+              <SW-VALUES-PHYS>
+                <V>10.0</V>
+              </SW-VALUES-PHYS>
+            </SW-VALUE-CONT>
+          </SW-INSTANCE>
+          <SW-INSTANCE>
+            <SHORT-NAME>mymodel_P.SineWave_Bias</SHORT-NAME>
+            <LONG-NAME></LONG-NAME>
+            <CATEGORY>VALUE</CATEGORY>
+            <SW-VALUE-CONT>
+              <UNIT-DISPLAY-NAME xml:space="preserve"></UNIT-DISPLAY-NAME>
+              <SW-VALUES-PHYS>
+                <V>0.0</V>
+              </SW-VALUES-PHYS>
+            </SW-VALUE-CONT>
+          </SW-INSTANCE>
+          <SW-INSTANCE>
+            <SHORT-NAME>mymodel_P.SineWave_NumSamp</SHORT-NAME>
+            <LONG-NAME></LONG-NAME>
+            <CATEGORY>VALUE</CATEGORY>
+            <SW-VALUE-CONT>
+              <UNIT-DISPLAY-NAME xml:space="preserve"></UNIT-DISPLAY-NAME>
+              <SW-VALUES-PHYS>
+                <V>10.0</V>
+              </SW-VALUES-PHYS>
+            </SW-VALUE-CONT>
+          </SW-INSTANCE>
+          <SW-INSTANCE>
+            <SHORT-NAME>mymodel_P.SineWave_Offset</SHORT-NAME>
+            <LONG-NAME></LONG-NAME>
+            <CATEGORY>VALUE</CATEGORY>
+            <SW-VALUE-CONT>
+              <UNIT-DISPLAY-NAME xml:space="preserve"></UNIT-DISPLAY-NAME>
+              <SW-VALUES-PHYS>
+                <V>0.0</V>
+              </SW-VALUES-PHYS>
+            </SW-VALUE-CONT>
+          </SW-INSTANCE>
+        </SW-INSTANCE-TREE>
+      </SW-INSTANCE-SPEC>
+    </SW-SYSTEM>
+  </SW-SYSTEMS>
+
+</MSRSW>
