@@ -18,6 +18,7 @@ DEFAULT_A2L = Path(__file__).resolve().parent.parent / "mymodel_ert_rtw" / "mymo
 CMD_CONNECT = 0xFF
 CMD_DISCONNECT = 0xFE
 CMD_SHORT_UPLOAD = 0xF4
+CMD_SHORT_DOWNLOAD = 0xED
 
 # XCP packet identifiers (CTO response first byte)
 PID_RES = 0xFF
@@ -74,6 +75,33 @@ def decode_value(data: bytes, datatype: Optional[str]) -> Optional[object]:
 	except struct.error:
 		return None
 	return None
+
+
+def encode_value(value_text: str, datatype: Optional[str]) -> bytes:
+	if datatype is None:
+		raise RuntimeError("Datatype is unknown for this symbol. Cannot encode value.")
+	dt = datatype.upper()
+	if dt == "UBYTE":
+		return struct.pack("<B", int(value_text, 0))
+	if dt == "SBYTE":
+		return struct.pack("<b", int(value_text, 0))
+	if dt == "UWORD":
+		return struct.pack("<H", int(value_text, 0))
+	if dt == "SWORD":
+		return struct.pack("<h", int(value_text, 0))
+	if dt == "ULONG":
+		return struct.pack("<I", int(value_text, 0))
+	if dt == "SLONG":
+		return struct.pack("<i", int(value_text, 0))
+	if dt == "A_UINT64":
+		return struct.pack("<Q", int(value_text, 0))
+	if dt == "A_INT64":
+		return struct.pack("<q", int(value_text, 0))
+	if dt == "FLOAT32_IEEE":
+		return struct.pack("<f", float(value_text))
+	if dt == "FLOAT64_IEEE":
+		return struct.pack("<d", float(value_text))
+	raise RuntimeError(f"Unsupported datatype for write: {datatype}")
 
 
 def pack_xcp_tcp(payload: bytes, counter: int = 0) -> bytes:
@@ -246,6 +274,15 @@ def short_upload(sock: socket.socket, counter: int, address: int, size_bytes: in
 	return counter + 1, rx[1:]
 
 
+def short_download(sock: socket.socket, counter: int, address: int, data: bytes) -> int:
+	if not (1 <= len(data) <= 255):
+		raise ValueError("SHORT_DOWNLOAD payload must be between 1 and 255 bytes")
+	# SHORT_DOWNLOAD: [CMD, n, reserved, addr_ext, addr32, data...]
+	payload = bytes([CMD_SHORT_DOWNLOAD, len(data), 0x00, 0x00]) + struct.pack("<I", address) + data
+	xcp_request(sock, payload, counter)
+	return counter + 1
+
+
 def main() -> int:
 	parser = argparse.ArgumentParser(description="Simple XCP-over-TCP connect test")
 	parser.add_argument("--host", default=DEFAULT_HOST, help="XCP server host")
@@ -255,6 +292,7 @@ def main() -> int:
 	parser.add_argument("--a2l", type=Path, default=DEFAULT_A2L, help="Path to A2L file")
 	parser.add_argument("--list-symbols", action="store_true", help="List symbols parsed from A2L and exit")
 	parser.add_argument("--symbol", help="A2L symbol (MEASUREMENT/CHARACTERISTIC) to read with SHORT_UPLOAD")
+	parser.add_argument("--set", nargs=2, metavar=("SYMBOL", "VALUE"), help="Set symbol to value using SHORT_DOWNLOAD")
 	parser.add_argument("--bytes", type=int, help="Read size in bytes (overrides A2L datatype size)")
 	parser.add_argument("--print-all", action="store_true", help="Print all model variables and read their values")
 	parser.add_argument("--allow-zero-address", action="store_true", help="Try reading symbols even when ECU_ADDRESS is 0x0000")
@@ -350,6 +388,29 @@ def main() -> int:
 				print(f"{sym.name} = {decoded}")
 			else:
 				print(f"{sym.name} = <cannot decode {sym.datatype or 'raw'}>")
+
+		if args.set:
+			symbol_name, value_text = args.set
+			sym = symbols.get(symbol_name)
+			if sym is None:
+				available = ", ".join(sorted(symbols.keys())[:10])
+				raise RuntimeError(f"Symbol '{symbol_name}' not found in A2L. Examples: {available}")
+			if sym.address == 0 and not args.allow_zero_address:
+				raise RuntimeError(
+					"Symbol has unresolved ECU_ADDRESS=0x00000000 in A2L. "
+					"Rebuild A2L with resolved addresses or pass --allow-zero-address."
+				)
+
+			write_data = encode_value(value_text, sym.datatype)
+			counter = short_download(sock, counter, sym.address, write_data)
+
+			# Read back written value for verification.
+			counter, rb = short_upload(sock, counter, sym.address, len(write_data))
+			decoded = decode_value(rb, sym.datatype)
+			if decoded is not None:
+				print(f"{sym.name} = {decoded}")
+			else:
+				print(f"{sym.name} = <written, cannot decode {sym.datatype or 'raw'}>")
 
 		# Send DISCONNECT (best-effort)
 		try:
